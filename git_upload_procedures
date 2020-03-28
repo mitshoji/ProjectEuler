@@ -1,0 +1,6 @@
+git init
+git add [filename]
+git commit -m "comments about the uploading"
+git remote add origin git@github.com:mitshoji/ProjectEuler.git
+git push -u origin master
+
