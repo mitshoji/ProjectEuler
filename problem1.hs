@@ -1,0 +1,21 @@
+{-
+Multiples of 3 and 5
+   
+Problem 1
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+-}
+
+numList :: [Int]
+numList = [ n | n <- [1..999], isMult3 n || isMult5 n]
+        where
+           --isMult3 :: Int -> Bool
+           isMult3 m = m `mod` 3 == 0
+           --isMult5 :: Int -> Bool
+           isMult5 m = m `mod` 5 == 0
+
+main :: IO ()
+main = print $ sum numList
+
+
