@@ -8,12 +8,10 @@ Find the sum of all the multiples of 3 or 5 below 1000.
 -}
 
 numList :: [Int]
-numList = [ n | n <- [1..999], isMult3 n || isMult5 n]
+numList = [ n | n <- [1..999], n `isMultipuleOf` 3 || n `isMultipuleOf` 5]
         where
-           --isMult3 :: Int -> Bool
-           isMult3 m = m `mod` 3 == 0
-           --isMult5 :: Int -> Bool
-           isMult5 m = m `mod` 5 == 0
+           --isMultipuleOf :: Int -> Int -> Bool
+           isMultipuleOf n m = n `mod` m == 0
 
 main :: IO ()
 main = print $ sum numList
