@@ -33,8 +33,7 @@ num = "7316717653133062491922511967442657474235534919493496983520312774506326239
 
 readDigit :: String -> [Int]
 readDigit []     = []
-readDigit (c:cs) | c == '\n' = []
-                 | otherwise = ((read.return) c) : readDigit cs 
+readDigit (c:cs) = ((read.return) c) : readDigit cs 
 
 
 prods :: [Int] -> [Int]
