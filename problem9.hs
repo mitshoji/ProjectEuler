@@ -11,9 +11,9 @@ There exists exactly one Pythagorean triplet for which a + b + c = 1000.
 Find the product abc.
 -}
 
-type Pythagorean = (Int, Int, Int)
+type Pyth = (Int, Int, Int)
 
-findPyth' :: [Pythagorean]
+findPyth' :: [Pyth]
 findPyth' = [(a,b,c) | a <- [1..1000],
                        b <- [a..1000],
                        c <- [b..1000],
@@ -22,7 +22,7 @@ findPyth' = [(a,b,c) | a <- [1..1000],
 
 -- findPyth' は計算が終わらないので改善する
 
-findPyth :: [Pythagorean]
+findPyth :: [Pyth]
 findPyth = [(2*u*v, u^2 - v^2, u^2 + v^2) | v <- [1..31],
                                             u <- [v..31],
                                             u^2 + u*v == 500]
@@ -30,7 +30,7 @@ findPyth = [(2*u*v, u^2 - v^2, u^2 + v^2) | v <- [1..31],
 -- ピタゴラス数は整数(u,v)を用いて(2*u*v, u^2 - v^2, u^2 + v^2)
 -- と表されることを利用
 
-prod :: Pythagorean -> Int
+prod :: Pyth -> Int
 prod (x,y,z) = x * y * z
 
 
