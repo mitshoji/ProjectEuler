@@ -11,7 +11,7 @@ primes :: [Integer]
 primes = 2 : filter isPrime [3,5..]
 
 isPrime :: Integer -> Bool
-isPrime n = all (\d -> n `mod`d /= 0) [ x | x <- takeWhile (\d -> d*d <= n) primes]
+isPrime n = all (\d -> n `mod`d /= 0) $ takeWhile (\d -> d*d <= n) primes
 
 
 main :: IO ()
