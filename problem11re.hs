@@ -38,12 +38,10 @@ grids :: IO [[String]]
 grids = fmap (map words.lines) $ readFile "problem11_numbers.txt" 
 
 
--- 読み込んだテキスト([[String]])を数字列([[Int]])に変換
 arrangeGrids :: [[String]] -> [[Int]]
 arrangeGrids =  map (map read)
 
 
--- タテ・ヨコ・ナナメ　全方位に拾った数字列をリストにして、リストのリストを作る
 everyDirection :: [[Int]] -> [[Int]]
 everyDirection xss =  xss 
                    ++ (transpose xss)
@@ -51,52 +49,45 @@ everyDirection xss =  xss
                    ++ (diagsLeft xss)
 
 
--- 4つの数の積を先頭から順に取る
+
 findProd :: [Int] -> [Int]
 findProd []         = []
 findProd xxs@(x:xs) = product (take 4 xxs) : (findProd xs)
                       
 
--- everyDirection の各要素（リスト）から4数の積の最大値を求め、
--- トーナメント方式でそれらの最大値を求める 
+
 eval :: [[Int]] -> Int
 eval xss = maximum $ map (maximum.findProd) xss
 
 
--- grids を対角線で反転。行列の転置操作
+
 transpose :: [[Int]] -> [[Int]]
-transpose [xs]     = [ [x] | x <- xs ] -- [x,y,z] -> [[x],[y],[z]]
+transpose [xs]     = [ [x] | x <- xs ]
 transpose (xs:xss) = zipWith (:) xs (transpose xss)
 
 
--- 右斜め下に拾える数字列
--- 例）[[x1,x2,x3],[y1,y2,y3],[z1,z2,z3]]
--- -> [[x1,y2,z3],[x2,y3],[x3],[y1,z2],[z1]]
--- ++ 以降のtailは対角線の重複を削除するため
+
 diagsRight :: [[Int]] -> [[Int]]
 diagsRight xss = (diagsRight' xss) ++ (tail $ diagsRight'' xss)
 
 
--- 左斜め下に拾える数字列
--- gridsの各行をreverseして右斜め下に拾う操作をすればよい
+
 diagsLeft :: [[Int]] -> [[Int]]
 diagsLeft = diagsRight.(map reverse)
 
 
--- 行列の上三角化
--- 例）[[x1,x2,x3],[y1,y2,y3],[z1,z2,z3]] -> [[x1,x2,x3],[y2,y3],[z3]] 
+
 diag :: [[Int]] -> [[Int]]
 diag []       = []
 diag (xs:xss) = xs : diag (map tail xss) 
 
 
--- 上三角化したgridsの各行の先頭から1つずつ取る
+
 diagsRight' :: [[Int]] -> [[Int]]
 diagsRight' [xs] = [xs]
 diagsRight' xss  = (map head $ diag xss) : diagsRight' (map tail $ init xss)
 
 
--- 行列の下三角化はgridsを転置して上三角化
 diagsRight'' :: [[Int]] -> [[Int]]
 diagsRight'' = diagsRight'. transpose 
 
