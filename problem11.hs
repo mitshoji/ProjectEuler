@@ -27,7 +27,8 @@ In the 20 x 20 grid below, four numbers along a diagonal line have been marked i
 
 The product of these numbers is 26 x 63 x 78 x 14 = 1788696.
 
-What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20 x 20 grid?
+What is the greatest product of four adjacent numbers in the same direction 
+(up, down, left, right, or diagonally) in the 20 x 20 grid?
 -}
 
 
@@ -35,12 +36,12 @@ grids :: IO [[String]]
 grids = fmap (map words.lines) $ readFile "problem11_numbers.txt" 
 
 
--- ｿｿｿｿｿｿｿｿｿｿｿｿｿ([[String]])ｿｿｿｿ([[Int]])ｿｿｿ
+-- 読み込んだテキスト([[String]])を数字列([[Int]])に変換
 arrangeGrids :: [[String]] -> [[Int]]
 arrangeGrids =  map (map read)
 
 
--- ｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿ
+-- タテ・ヨコ・ナナメ　全方位に拾った数字列をリストにして、リストのリストを作る
 everyDirection :: [[Int]] -> [[Int]]
 everyDirection xss =  xss 
                    ++ (transpose xss)
@@ -48,22 +49,22 @@ everyDirection xss =  xss
                    ++ (diagsLeft xss)
 
 
--- 4ｿｿｿｿｿｿｿｿｿｿｿ
+-- 4つの数の積を先頭から順に取る
 findProd :: [Int] -> [Int]
 findProd []         = []
 findProd xxs@(x:xs) = product (take 4 xxs) : (findProd xs)
                       
 
--- everyDirection ｿｿｿｿｿｿ4ｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿ 
+-- everyDirection の各要素（リスト）から4数の積の最大値を求め、トーナメント方式でそれらの最大値を求める 
 eval :: [[Int]] -> Int
 eval xss = maximum $ map (maximum.findProd) xss
 
 
--- grids ｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿ
+-- grids を対角線で反転。行列の転置操作
 transpose :: [[Int]] -> [[Int]]
 transpose [xs]     = [ [x] | x <- xs ] -- [x,y,z] -> [[x],[y],[z]]
 transpose (xs:xss) = zipWith (:) xs (transpose xss)
--- ｿｿｿｿｿｿｿｿｿｿｿｿ
+-- ややこしいので例；
 --    transpose [[x1,x2,x3],[y1,y2,y3],[z1,z2,z3]] 
 -- -> zipWith (:) [x1,x2,x3] (transpose [[y1,y2,y3],[z1,z2,z3]])
 -- -> zipWith (:) [x1,x2,x3] (zipWith (:) [y1,y2,y3] (transpose [z1,z2,z3]))
@@ -72,33 +73,33 @@ transpose (xs:xss) = zipWith (:) xs (transpose xss)
 -- -> [[x1,y1,z1],[x2,y2,z2],[x3,y3,z3]]
 
 
--- ｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿ
--- ｿｿ[[x1,x2,x3],[y1,y2,y3],[z1,z2,z3]] -> [[x1,y2,z3],[x2,y3],[x3],[y1,z2],[z1]]
--- ++ ｿｿｿtailｿｿｿｿｿｿｿｿｿｿｿｿ1ｿｿｿｿｿｿ
+-- 右斜め下に拾える数字列
+-- 例）[[x1,x2,x3],[y1,y2,y3],[z1,z2,z3]] -> [[x1,y2,z3],[x2,y3],[x3],[y1,z2],[z1]]
+-- ++ 以降のtailは対角線の重複を削除するため
 diagsRight :: [[Int]] -> [[Int]]
 diagsRight xss = (diagsRight' xss) ++ (tail $ diagsRight'' xss)
 
 
--- ｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿ
--- ｿｿｿgridsｿｿｿｿreverseｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿ
+-- 左斜め下に拾える数字列
+-- gridsの各行をreverseして右斜め下に拾う操作をすればよい
 diagsLeft :: [[Int]] -> [[Int]]
 diagsLeft = diagsRight.(map reverse)
 
 
--- ｿｿｿｿｿｿｿｿｿｿｿｿheadｿｿｿｿｿｿｿｿｿ
--- ｿｿ[[x1,x2,x3],[y1,y2,y3],[z1,z2,z3]] -> [[x1,x2,x3],[y2,y3],[z3]] 
+-- 行列の上三角化
+-- 例）[[x1,x2,x3],[y1,y2,y3],[z1,z2,z3]] -> [[x1,x2,x3],[y2,y3],[z3]] 
 diag :: [[Int]] -> [[Int]]
 diag []       = []
 diag (xs:xss) = xs : diag (map tail xss) 
 
 
--- ｿｿｿｿｿgridsｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿ
+-- 上三角化したgridsの各行の先頭から1つずつ取る
 diagsRight' :: [[Int]] -> [[Int]]
 diagsRight' [xs] = [xs]
 diagsRight' xss  = (map head $ diag xss) : diagsRight' (map tail $ init xss)
 
 
--- ｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿｿ
+-- 行列の下三角化はgridsを転置して上三角化
 diagsRight'' :: [[Int]] -> [[Int]]
 diagsRight'' = diagsRight'. transpose 
 
