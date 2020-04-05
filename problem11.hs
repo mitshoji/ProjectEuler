@@ -2,7 +2,8 @@
 Largest product in a grid
    
 Problem 11
-In the 20 x 20 grid below, four numbers along a diagonal line have been marked in red.
+In the 20 x 20 grid below, four numbers along a diagonal line 
+have been marked in red.
 
 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -27,8 +28,9 @@ In the 20 x 20 grid below, four numbers along a diagonal line have been marked i
 
 The product of these numbers is 26 x 63 x 78 x 14 = 1788696.
 
-What is the greatest product of four adjacent numbers in the same direction 
-(up, down, left, right, or diagonally) in the 20 x 20 grid?
+What is the greatest product of four adjacent numbers in the 
+same direction (up, down, left, right, or diagonally) in the 
+20 x 20 grid?
 -}
 
 
@@ -55,7 +57,8 @@ findProd []         = []
 findProd xxs@(x:xs) = product (take 4 xxs) : (findProd xs)
                       
 
--- everyDirection の各要素（リスト）から4数の積の最大値を求め、トーナメント方式でそれらの最大値を求める 
+-- everyDirection の各要素（リスト）から4数の積の最大値を求め、
+-- トーナメント方式でそれらの最大値を求める 
 eval :: [[Int]] -> Int
 eval xss = maximum $ map (maximum.findProd) xss
 
@@ -74,7 +77,8 @@ transpose (xs:xss) = zipWith (:) xs (transpose xss)
 
 
 -- 右斜め下に拾える数字列
--- 例）[[x1,x2,x3],[y1,y2,y3],[z1,z2,z3]] -> [[x1,y2,z3],[x2,y3],[x3],[y1,z2],[z1]]
+-- 例）[[x1,x2,x3],[y1,y2,y3],[z1,z2,z3]]
+-- -> [[x1,y2,z3],[x2,y3],[x3],[y1,z2],[z1]]
 -- ++ 以降のtailは対角線の重複を削除するため
 diagsRight :: [[Int]] -> [[Int]]
 diagsRight xss = (diagsRight' xss) ++ (tail $ diagsRight'' xss)
