@@ -53,4 +53,3 @@ col k | k `mod` 2 == 0 = k `div` 2
       | otherwise      = 3 * k + 1
 
 
---Answer: 837799
