@@ -108,6 +108,9 @@ diagsRight'' :: [[Int]] -> [[Int]]
 diagsRight'' = diagsRight'. transpose 
 
 
+diagonal :: [[Int]] -> [[Int]]
+diagonal = diag.transpose
+
 
 
 main :: IO()
