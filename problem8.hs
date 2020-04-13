@@ -44,4 +44,3 @@ main :: IO ()
 main = do num <- readFile "problem8_numbers.txt"
           print $ maximum $ prods $ readDigit num 
 
---Answer: 23514624000

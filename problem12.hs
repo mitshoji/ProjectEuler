@@ -51,5 +51,3 @@ triangulars = [n*(n+1) `div` 2 | n <- [1..]]
 main :: IO ()
 main = print $ find (\n -> numDivs n >= 500) triangulars
 
-
---Answer: 76576500

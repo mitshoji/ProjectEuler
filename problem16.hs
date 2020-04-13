@@ -15,5 +15,3 @@ main = print $ sum $ breakToDigits (2^1000)
 breakToDigits :: (Integral a, Read a, Show a) => a -> [a] 
 breakToDigits n = map (read. return) $ show n
 
-
---Answer: 1366

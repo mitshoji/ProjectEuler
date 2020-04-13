@@ -18,4 +18,3 @@ latticePath n = fact (n+n) `div` (fact n)^2
                    fact 1 = 1
                    fact n = n * fact (n-1) 
 
---Answer: 137846528820

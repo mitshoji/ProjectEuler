@@ -36,4 +36,3 @@ main = print $ findDivisor dividend (primeList dividend)
 
 
 
--- Answer: 6857

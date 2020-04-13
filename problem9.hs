@@ -38,5 +38,3 @@ prod (x,y,z) = x * y * z
 main :: IO ()
 main = print $ prod $ head findPyth
 
-
---Answer: 31875000

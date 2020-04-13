@@ -18,5 +18,3 @@ main :: IO ()
 main = print $ sum $ takeWhile ( < 2000000) primes
 
 
-
---Answer: 142913828922

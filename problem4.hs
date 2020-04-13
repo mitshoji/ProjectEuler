@@ -19,4 +19,3 @@ main :: IO ()
 main = print $ head $ filter isPalindrome $ map show candidates
 
 
---  Answer: 906609

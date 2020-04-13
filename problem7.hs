@@ -32,6 +32,4 @@ isPrime n = all (\d -> n `mod`d /= 0) [ x | x <- [2..bound n]]
 
 main :: IO ()
 main = print $ (!!) newPrimes 10000
---main = print $ (!!) primes 10000
 
--- Answer: 104743

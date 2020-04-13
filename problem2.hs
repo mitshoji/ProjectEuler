@@ -24,4 +24,3 @@ evenFibonacci = filter isEven $ takeWhile ( < fourMillion) fibonacci
 main :: IO ()
 main = print $ sum evenFibonacci
 
--- Answer: 4613732

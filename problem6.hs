@@ -26,4 +26,3 @@ main :: IO ()
 main = print $ delta [1..100]
 
 
--- Answer: 25164150
