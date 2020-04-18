@@ -1,12 +1,20 @@
 import Euler
 
-formula :: Int -> Int -> [Int]
-formula a b = [n*n + a*n + b |n <- [0..b]]
+main :: IO ()
+main = print $ snd $ maximum nums
 
-nums :: [[Int]]
-nums = map (takeWhile proper) [formula a b | b <- pms, a <- (*) <$> [-1,1] <*> [0..b]]
+
+nums :: [(Int, Int)]
+nums = [(len a b, a * b) | b <- pms,
+                           a <- [-999..999],
+                           a `mod` 2 /= 0  ]
      where
-        proper = and isPrime  ( > 1)
+        len a b = length $ formula a b
+
+
+formula :: Int -> Int -> [Int]
+formula a b = takeWhile isPrime [n*n + a*n + b |n <- [0..b]]
+
 
 pms :: [Int]
 pms = takeWhile (< 1000) primes
