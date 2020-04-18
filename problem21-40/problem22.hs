@@ -12,7 +12,6 @@ nameScore str = sum $ zipWith (*) (map nameValue str) [1..]
 nameValue :: String -> Int
 nameValue = sum. (map charToInt)
           where
-           --  charToInt '\"' = 0
              charToInt c = ord c - ord 'A' + 1
 
 ----------------------------------------------------------
