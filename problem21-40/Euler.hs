@@ -9,11 +9,12 @@ module Euler
 
 import Data.List
 
-primes :: (Integral a, Read a, Show a) => [a]
+primes :: (Integral a, Num a) => [a]
 primes = 2 : filter isPrime [3,5..]
 
-isPrime :: (Integral a, Read a, Show a) => a -> Bool
-isPrime n = all (\d -> n `mod`d /= 0) $ takeWhile (\d -> d*d <= n) primes
+isPrime :: (Integral a, Num a) => a -> Bool
+isPrime n | n <= 1    = False
+          | otherwise = all (\d -> n `mod`d /= 0) $ takeWhile (\d -> d*d <= n) primes
 
 ---------------------------------
 divisors :: Int -> [Int]
