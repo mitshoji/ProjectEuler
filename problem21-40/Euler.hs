@@ -4,6 +4,7 @@ module Euler
 , breakToDigits
 , divisors
 , factorization
+, divsSum
 ) where
 
 import Data.List
@@ -29,6 +30,15 @@ factorization n = map gcnt $ group $ divisors n
                 where
                 -- gcnt :: [a] -> (a,b)
                    gcnt (x:xs) = (x, length (x:xs))
+
+divsSum :: Int -> Int
+divsSum n = (calcd $ factorization n) - n
+
+calcd :: [(Int, Int)] -> Int
+calcd = foldr (\x y -> y * f x) 1
+      where
+      -- f :: (Int, Int) -> Int
+         f (p,r) = (p^(r+1) - 1) `div` (p-1)
 
 ---------------------------------
 breakToDigits :: (Integral a, Read a, Show a) => a -> [a] 

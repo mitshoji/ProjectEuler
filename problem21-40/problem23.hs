@@ -2,19 +2,15 @@ import Euler
 import Data.List
 
 main :: IO ()
-main = print $ (sum [1..28123]) - (sum $ mksums abundan)
+main = print $ (sum [1..28123]) - (sum $ mksums abundant)
 
 
 mksums :: [Int] -> [Int]
-mksums xs = nodups
+mksums xs = nub
           $ takeWhile (<= 28123) 
           $ sort 
           $ concatMap (zipWith (+) xs) (tails xs)
-          where
-             nodups [x]                  = [x]
-             nodups (x:xs:xss) | x == xs = nodups (xs:xss)
-                               | x /= xs = x : nodups (xs:xss)
 
 
-abundan :: [Int]
-abundan = [ x | x <- [1..28123], x < divsSum x]
+abundant :: [Int]
+abundant = [ x | x <- [1..28123], x < divsSum x]
