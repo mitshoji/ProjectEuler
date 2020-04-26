@@ -19,8 +19,8 @@ change _ [] tbl            = (0, tbl)
 change prc css@(c:cs) tbl
                  | prc < 0 = (0, tbl)
                  |otherwise = case Map.lookup (prc,css) tbl of
-                              Just prc -> (prc, tbl)
-                              Nothing  -> (val, newtbl)
+                              Just v  -> (v, tbl)
+                              Nothing -> (val, newtbl)
                                 where
                                    val            = val' + val''
                                    (val', tbl')   = change prc cs tbl
