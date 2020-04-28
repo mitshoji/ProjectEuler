@@ -14,7 +14,7 @@ primes = 2 : filter isPrime [3,5..]
 
 isPrime :: (Integral a, Num a) => a -> Bool
 isPrime n | n <= 1    = False
-          | otherwise = all (\d -> n `mod`d /= 0) $ takeWhile (\d -> d*d <= n) primes
+          | otherwise = all (\d -> n `mod`d /= 0) $ takeWhile (\d -> d*d <= n) [2..]
 
 ---------------------------------
 divisors :: Int -> [Int]
