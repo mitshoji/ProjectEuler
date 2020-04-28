@@ -1,10 +1,8 @@
 import Data.Char
 
 main :: IO ()
-main = print $ sum $ filter eval list
+main = print $ sum $ filter eval [3..(7*fact 9)]
 
-list :: [Int]
-list = [ n | n <- [3..(7*fact 9)]]
 
 eval :: Int -> Bool
 eval n = n == (sumup $ btg n)
