@@ -5,7 +5,6 @@ pms :: [Integer]
 pms = takeWhile ( < 1000000) primes
 
 
-------------------------------------------------------------------------------------
 mkCycle :: [a] -> [[a]]
 mkCycle xs = take (length xs) $ cycle xs
            where
