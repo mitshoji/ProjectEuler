@@ -6,18 +6,18 @@ main = print $ sum $ take 11 $ filter isTruncatable $ drop 4 primes
 -- drop 4 is to pick out first 4 primes; 2,3,5,7
 
 isTruncatable :: Int -> Bool
-isTruncatable n = all isPrime $ shift n
+isTruncatable n = all isPrime $ truncate n
 
-shift :: Int -> [Int]
-shift n = (shiftL n) ++ (tail $ shiftR n) 
+truncate :: Int -> [Int]
+truncate n = (truncateL n) ++ (tail $ truncateR n) 
 
-shiftR :: Int -> [Int]
-shiftR = (map read). init. tails. show
--- shiftR 247 = [247,47,7]
+truncateR :: Int -> [Int]
+truncateR = (map read). init. tails. show
+-- truncateR 247 = [247,47,7]
 -- we need init since tails returns empty element at last,
 -- like [247,47,7,""]
 
-shiftL :: Int -> [Int]
-shiftL = (map read). tail. inits. show
--- shiftL 247 = [2,24,247]
--- In shiftL, we need tail as we do in shiftR for the same reason.
+truncateL :: Int -> [Int]
+truncateL = (map read). tail. inits. show
+-- truncateL 247 = [2,24,247]
+-- In truncateL, we need tail as we do in truncateR for the same reason.
