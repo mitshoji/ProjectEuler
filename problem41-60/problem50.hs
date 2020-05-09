@@ -13,6 +13,7 @@ searchPseq ps = maximum [searchPseq left, searchMiddle left right, searchPseq ri
        (left, right) = (take hlf ps, drop hlf ps)
        hlf           = (length ps) `div` 2
 
+searchMiddle :: [Pset] -> [Pset] -> Pset
 searchMiddle ls rs = maximum [ eval x y | x <- ls, y <- rs, isPrimeSet (eval x y)]
     where
        eval (ix,vx) (iy,vy) = (iy-ix, vy-vx)
@@ -31,3 +32,12 @@ isPrimeSet (idx, val) = isPrime val
 isPrime :: Integer -> Bool
 isPrime n = all (\d -> n `mod` d /= 0) 
           $ takeWhile (\d -> d*d <= n) (2:[3,5..])
+
+----- other solution; almost equivalent efficiency...
+
+search :: Pset
+search = maximum [eval x y | x <- (0,0):takeWhile (\(k,v) -> (v < 1000000)) prmSets,
+                             y <- (0,0):takeWhile (\(k,v) -> (v < 1000000)) prmSets,
+                             snd x < snd y, isPrimeSet (eval x y)]
+    where
+       eval (ix,vx) (iy,vy) = (iy-ix, vy-vx)
