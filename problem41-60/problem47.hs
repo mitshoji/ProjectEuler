@@ -5,11 +5,15 @@ import Data.List
 type Table = Map.Map Int [Int]
 
 main :: IO ()
-main = print $ check $ choice 4 4 [] $ filter (\x -> (length $ fst x) == 4) getFactor
+main = print 
+     $ check 
+     $ choice 4 4 [] 
+     $ filter (\x -> (length $ fst x) == 4) getFactor
 
 -- check no dupulications
 check :: Eq a => [([a], b)] -> [([a], b)]
-check xs | (length $ nub $ concatMap fst xs) == (sum $ map (length.fst) xs) = xs
+check xs | (length $ nub $ concatMap fst xs) 
+           == (sum $ map (length.fst) xs) = xs
          | otherwise = error "not found"
 
 -- choose consecutives, dsr as desired length
